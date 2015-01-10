@@ -12,18 +12,6 @@ class User
   [:first_name, :last_name].each { |name| validates_presence_of name }
   validates_numericality_of :age, allow_nil: true
 
-  has_many :both, :friends,    type: 'FRIENDS_WITH', model_class: 'User', unique: true
-  has_many :out, :friends_out, type: 'FRIENDS_WITH', model_class: 'User', unique: true
-  has_many :in,  :friends_in,  type: 'FRIENDS_WITH', model_class: 'User', unique: true
-
-  has_many :out, :stories, type: 'POSTED', dependent: :destroy, unique: true
-  has_many :out, :replies_to, model_class: 'User', rel_class: 'RepliedTo'
-
-  # The more Ruby-ish way to write this would be:
-  # {both: :friends, out: :friends_out, in: :friends_with}.each_pair do |direction, association|
-  #   has_many direction, association, type: 'FRIENDS_WITH', model_class: 'User', unique: true
-  # end
-
   # Devise things
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -48,8 +36,4 @@ class User
     "#{first_name} #{last_name}".blank? ? email : "#{first_name} #{last_name}"
   end
 
-  def storyfeed
-    # stories(:s).optional(:poster, :p).stories(:s).replying_users(:u, :r).pluck(:s, 'collect(r)')
-    stories(:story)
-  end
 end

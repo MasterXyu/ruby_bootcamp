@@ -1,9 +1,0 @@
-<div>Your Storyfeed</div>
-<% if @storyfeed %>
-  <% @storyfeed.each_with_index do |story, i| %>
-    <%= render 'stories/story', story: story, replies: story.replies %>
-    <hr />
-  <% end %>
-<% else %>
-  No stories! <%= link_to 'Write something!', new_story_path %>
-<% end %>
