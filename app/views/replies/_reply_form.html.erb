@@ -1,0 +1,10 @@
+<div>
+  Replying to:
+  <%= render 'stories/story', story: story, replies: false %>
+  <br />
+  <%= form_for @reply, url: story_reply_path(story) do |f| %>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %><br />
+    <%= f.submit %>
+  <% end %>
+</div>
